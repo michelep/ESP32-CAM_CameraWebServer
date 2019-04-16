@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="ESP32-Camera" />
+        <meta name="author" content="Michele <o-zone@zerozone.it> Pinassi" />
+	<title>ESP32-Camera - %hostname%</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" />
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    </head>
+    <body>
+	<div class="container">
+	    <center><div id="result">&nbsp;</div></center>
+	    <h1 class="mt-5">ESP32 Camera</h1>
+	    <h5>%hostname%</h5>
+	    <div class="card-deck"><!-- CARD DECK A -->
+		<div class="card bg-light mb-6 justify-content-md-center">
+		    <div class="card-header">
+			<h2 class="card-header-title">Live</h2>
+		    </div>
+		    <div class="card-body text-center">
+			<img src="/jpg">
+		    </div>
+		</div>
+	    </div><!-- /CARD DECK A -->
+	    <div class="accordion" id="configSection"><!-- CONFIGURATION -->
+		<div class="card"><!-- CONFIG -->
+		    <div class="card-header" id="headingManual">
+			<h5 class="mb-0">
+		    	    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseConfig" aria-expanded="true" aria-controls="collapseConfig">
+		    	        Configuration
+			    </button>
+			</h5>
+		    </div>
+		    <div class="collapse" id="collapseConfig" aria-labelledby="headingManual" data-parent="#configSection">
+			<div class="card-body">
+			    <form class="form" method="POST" action="/post">
+				<input type="hidden" name="action" value="config">
+				<div class="form-row">
+				    <div class="col-md-4">
+    		    			<label for="formAuthUser">Wifi ESSID</label>
+		    			<input type="text" class="form-control" id="form_wifi_essid" name="wifi_essid" value="%wifi_essid%" />
+		    			<p class="text-muted">Set your Wifi network name</p>
+				    </div>
+				    <div class="col-md-4">
+		    			<label for="formAuthPass">Wifi PSK</label>
+		    			<input type="text" class="form-control" id="form_wifi_password" name="wifi_password" value="%wifi_password%" />
+		    			<p class="text-muted">Your wifi password</p>
+				    </div>
+				    <div class="col-md-4">
+		    			<p>WiFi signal strenght (RSSI):</p>
+					<p><b>%wifi_rssi%</b> dBm</p>
+		    			<p class="text-muted">0-30dBm=Very Good, 31-50dBm=Good, 51-67dBm=Fair, 67-80dBm=Poor, >80dBm=Unstable</p>
+				    </div>
+				</div>
+				<div class="form-row">
+				    <label for="formHostName">Hostname</label>
+				    <input type="text" class="form-control" id="form_hostname" name="hostname" value="%hostname%" />
+				    <p class="text-muted">Set hostname</p>
+				</div>
+				<div class="form-row">
+				    <div class="col-md-6">
+					<label for="formNTPServer">NTP server</label>
+					<input type="text" class="form-control" id="form_ntp_server" name="ntp_server" value="%ntp_server%" />
+					<p class="text-muted">NTP server</p>
+				    </div>
+				    <div class="col-md-6">
+					<label for="formNTPTimeZone">NTP time zone</label>
+					<input type="text" class="form-control" id="form_ntp_timezone" name="ntp_timezone" value="%ntp_timezone%" />
+					<p class="text-muted">NTP time zone</p>
+				    </div>
+				</div>
+				<input type="submit" class="btn btn-info" value="Save" /> or <a href="/config.json" class="btn btn-xs btn-info">Backup config</a>
+			    </form>
+			    <div class="clearfix">&nbsp;</div>
+			    <form class="form" method="POST" action="/restart">
+				<input type="hidden" name="action" value="restart">
+				<input type="submit" class="btn btn-warning" value="Restart" />
+			    </form>
+			</div>
+		    </div>
+		</div><!-- /CONFIG -->
+	    </div>
+	</div>
+	<div class="container">
+	    <p class="text-muted">Firmware %fw_name% %fw_version% - Uptime %uptime% secs - %timedate% - %events% events</p>
+	</div>
+    </body>
+    <footer class="footer">
+        <div class="container">
+	    <div class="row justify-content-md-center">
+    	        <div class="text-center">
+            	    <hr class="small">
+            	    <p class="small">by Michele &lt;o-zone@zerozone.it&gt; Pinassi - <a href="http://www.zerozone.it">zerozone.it</a></p>
+        	</div>
+            </div>
+        </div>
+    </footer>
+</html>
